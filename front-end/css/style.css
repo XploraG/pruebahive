@@ -1,0 +1,10 @@
+.navbar-nav {
+  margin-right: 30px;
+}
+.navbar-brand {
+  margin-left: 30px;
+}
+#login-error {
+  color: #e31337;
+  display: none;
+}
