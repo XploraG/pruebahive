@@ -97,3 +97,63 @@ const checkState = () => {
   }
 }
 checkState()
+
+const baseAPI = 'http://127.0.0.1:2021'
+const APICall = async (api) => {
+  return (await fetch(baseAPI + api)).json()
+}
+
+const getGames = async (page = 1) => {
+  const games = await APICall('/games/' + page)
+  return games.games
+}
+
+const fillGamesTable = (data) => {
+  const tbody = document.getElementById('games-table-body')
+  let temp = ''
+  for (let i = 0; i < data.length; i++) {
+    temp += `<tr>
+    <td>${(gamesPage - 1) * 10 + i + 1}</td>
+    <td>${data[i].game_id}</td>
+    <td>${data[i].player1}</td>
+    <td>${data[i].player2}</td>
+    <td>${data[i].starting_player}</td>
+    <td>${data[i].status}</td>
+    <td>${data[i].winner}</td>
+    <td></td>
+    </tr>`
+  }
+  if (data.length < 1) {
+    temp = 'No games.'
+  }
+  tbody.innerHTML = temp
+}
+
+let gamesPage = 1
+const loadTheGames = async () => {
+  const games = await getGames(gamesPage)
+  fillGamesTable(games)
+  if (games.length < 10) {
+    document.getElementById('next-btn').className = 'page-item disabled'
+  } else {
+    document.getElementById('next-btn').className = 'page-item'
+  }
+  if (gamesPage === 1) {
+    document.getElementById('prev-btn').className = 'page-item disabled'
+  } else {
+    document.getElementById('prev-btn').className = 'page-item'
+  }
+  document.getElementById('page-number').innerHTML = ` ${gamesPage} `
+}
+loadTheGames()
+setInterval(() => loadTheGames(), 5000)
+
+const nextGamesPage = () => {
+  gamesPage++
+  loadTheGames()
+}
+
+const prevGamesPage = () => {
+  gamesPage--
+  loadTheGames()
+}
