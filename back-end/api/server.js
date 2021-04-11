@@ -33,10 +33,12 @@ app.use(function (req, res, next) {
 const games = require('./games')
 const requests = require('./requests')
 const moves = require('./moves')
+const game = require('./game')
 
 app.use(games)
 app.use(requests)
 app.use(moves)
+app.use(game)
 
 const port = process.env.PORT || 2021
 const host = process.env.HOST || '127.0.0.1'

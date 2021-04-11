@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="A decentralized game on hive blockchain" />
   <title>Tic-Tac-Toe on Hive blockchain</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -72,86 +72,68 @@
 
   <div class="container" style="margin-top: 50px;">
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-5" style="margin-bottom: 20px;">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-6" style="margin-bottom: 20px;">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Tic Tac Toe</h5>
-            <p class="card-text">You can explore the list of games and join the open games and play with a friend. Or
-              create a new game and invite your friend to play with you. <br /><br />
-              This game is hosted on <a href="https://hive.io" target="_blank">Hive</a> blockchain.<br />
-              <sub>Every action takes up to 3 seconds due to blockchain speed.</sub><br />
-              <sub>It's not possible to play games yet.</sub>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-5">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Create a Game</h5>
-            <p class="card-text">Create a game and wait for other players to join your game.</p>
-            <form onsubmit="createGame(); return false">
-              <div class="mb-3">
-                <label for="starting-player" class="form-label">Starting player:</label>
-                <select class="form-select" id="starting-player">
-                  <option value="first" selected>Player 1 (you)</option>
-                  <option value="second">Player 2</option>
-                </select>
-                <div class="form-text">Choose the player who will do the first move. You are player 1.</div>
-              </div>
-              <p id="create-game-error"></p>
-              <p id="create-game-success"></p>
-              <button type="submit" class="btn btn-primary" id="create-game-btn">Create game</button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <br />
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10" style="margin-bottom: 25px;">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title" style="float: left;">Games list</h5>
-            <span style="float: right;">Auto updating every 5s</span>
-            <table class="table table-striped">
+            <!-- <h5 class="card-title">Tic Tac Toe</h5> -->
+            <table class="table">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Game ID</th>
-                  <th>Player 1</th>
-                  <th>Player 2</th>
-                  <th>Starting Player</th>
+                  <th>Player1</th>
+                  <th>Player2</th>
+                  <th>Starting player</th>
                   <th>Status</th>
                   <th>Winner</th>
+                </tr>
+              </thead>
+              <tbody id="game-details">
+              </tbody>
+            </table>
+            <p id="details-error"></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card" style="margin-bottom: 20px;" id="join-card">
+          <div class="card-body">
+            <h5 class="card-title">Join the game</h5>
+            <p class="card-text">
+              Send a request to join this game.
+            </p>
+            <button id="join-btn" class="btn btn-primary" onclick="joinGame()">Join the game</button>
+            <p id="join-error"></p>
+            <p id="join-success"></p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Join requests</h5>
+            <p class="card-text" id="req-message-1" style="display: none;">
+              Accept one of the join requests and start the game.
+            </p>
+            <p class="card-text" id="req-message-2">
+              The first player can accept one of the requests and start the game.
+            </p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody id="games-table-body">
-              </tbody>
+              <tbody id="request-list"></tbody>
             </table>
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled" id="prev-btn">
-                  <a class="page-link" onclick="prevGamesPage()">&laquo;</a>
-                </li>
-                <li class="page-item disabled">
-                  <a class="page-link" id="page-number" tabindex="-1"> 1 </a>
-                </li>
-                <li class="page-item" id="next-btn">
-                  <a class="page-link" onclick="nextGamesPage()">&raquo;</a>
-                </li>
-              </ul>
-            </nav>
+            <p id="requests-error"></p>
+            <p id="requests-success"></p>
           </div>
         </div>
       </div>
-      <div class="col-md-1"></div>
+      <div class="col-lg-1"></div>
     </div>
   </div>
+
   <script src="js/app.js"></script>
 </body>
 

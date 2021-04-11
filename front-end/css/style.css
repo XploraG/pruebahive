@@ -8,3 +8,15 @@
   color: #e31337;
   display: none;
 }
+
+#create-game-error,
+#details-error,
+#requests-error,
+#join-error {
+  color: #e31337;
+}
+#create-game-success,
+#requests-success,
+#join-success {
+  color: green;
+}
