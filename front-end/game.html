@@ -16,10 +16,10 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body>
+<body style="overflow-y: scroll;">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Tic-Tac-Toe</a>
+      <a class="navbar-brand" href="/">Tic-Tac-Toe</a>
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#login-modal" id="login-button">
@@ -53,7 +53,9 @@
                 <input type="text" class="form-control" placeholder="username" aria-label="username" id="username"
                   required>
               </div>
-              <div class="form-text">Your Hive username. Lowercase.</div>
+              <div class="form-text">Your Hive username. Lowercase.
+                <a href="https://signup.hive.io/" target="_blank" rel="noreferrer noopener">Sign up</a>
+              </div>
             </div>
             <div class="mb-3">
               <label for="posting-key" class="form-label">Posting key:</label>
@@ -74,30 +76,80 @@
     <div class="row">
       <div class="col-lg-1"></div>
       <div class="col-lg-6" style="margin-bottom: 20px;">
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-body">
+            <h5 class="card-title">Tic Tac Toe</h5>
+            <hr style="margin: 0px 0px 15px 0px;" />
+            <div style="width: 100%; text-align: center;">
+              <span id="your-turn">
+                <h5>Your turn!</h5>Click on the board and submit your move.
+              </span>
+              <h5 id="waiting-other">Waiting for the other player...</h5>
+              <h5 id="waiting-all">Waiting for the players to finish the game...</h5>
+              <h5 id="waiting-join">Waiting for the player2 to join the game...</h5>
+              <h5 id="game-finished">The game is finished.</h5>
+              <canvas id="game-canvas" width="390" height="390"></canvas>
+              <br />
+              <button class="btn btn-primary" id="submit-move-btn" onclick="submitMove()"
+                title="Click on the board then submit your move." disabled>
+                Submit your move!
+              </button>
+              <p id="submit-move-error"></p>
+            </div>
+          </div>
+        </div>
         <div class="card">
           <div class="card-body">
-            <!-- <h5 class="card-title">Tic Tac Toe</h5> -->
-            <table class="table">
+            <h5 class="card-title">Play History</h5>
+            <hr style="margin: 0px 0px 15px 0px;" />
+            <p class="card-text">All the moves played will be listed below in order from top to bottom. Player1 is
+              playing "X" and Player2 is "O".</p>
+            <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Player1</th>
-                  <th>Player2</th>
-                  <th>Starting player</th>
-                  <th>Status</th>
-                  <th>Winner</th>
+                  <th>Player</th>
+                  <th>Move</th>
                 </tr>
               </thead>
-              <tbody id="game-details">
-              </tbody>
+              <tbody id="moves-list"></tbody>
             </table>
-            <p id="details-error"></p>
           </div>
         </div>
       </div>
       <div class="col-lg-4">
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-body">
+            <h5 class="card-title">Game Information</h5>
+            <hr style="margin: 0px 0px 5px 0px;" />
+            <table class="table">
+              <tr>
+                <th>Player1</th>
+                <td id="player1"></td>
+              </tr>
+              <tr>
+                <th>Player2</th>
+                <td id="player2"></td>
+              </tr>
+              <tr>
+                <th>Starting player</th>
+                <td id="starting-player"></td>
+              </tr>
+              <tr>
+                <th>Status</th>
+                <td id="status"></td>
+              </tr>
+              <tr>
+                <th>Winner</th>
+                <td id="winner"></td>
+              </tr>
+            </table>
+            <p id="details-error"></p>
+          </div>
+        </div>
         <div class="card" style="margin-bottom: 20px;" id="join-card">
           <div class="card-body">
             <h5 class="card-title">Join the game</h5>
+            <hr style="margin: 0px 0px 5px 0px;" />
             <p class="card-text">
               Send a request to join this game.
             </p>
@@ -106,9 +158,11 @@
             <p id="join-success"></p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" style="margin-bottom: 20px;">
           <div class="card-body">
-            <h5 class="card-title">Join requests</h5>
+            <h5 class="card-title" style="float: left;">Join requests</h5>
+            <sub style="float: right;">Auto updating every 5s</sub>
+            <hr style="margin: 38px 0px 5px 0px;" />
             <p class="card-text" id="req-message-1" style="display: none;">
               Accept one of the join requests and start the game.
             </p>
@@ -134,7 +188,11 @@
     </div>
   </div>
 
+  <div class="loading style-2" id="loading">
+    <div class="loading-wheel"></div>
+  </div>
   <script src="js/app.js"></script>
+  <script src="js/game.js"></script>
 </body>
 
 </html>

@@ -25,10 +25,18 @@ const tableRquests =
   '`game_id` TINYTEXT NOT NULL , `player` TINYTEXT NOT NULL , `status` TINYTEXT NOT NULL , ' +
   'PRIMARY KEY  (`id`)) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;'
 
+const tableLastblock =
+  'CREATE TABLE IF NOT EXISTS `tictactoe`.`lastblock` ( `id` INT NOT NULL , `block_number` INT NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;'
+
+const initLastblock =
+  'INSERT INTO `lastblock`(`id`, `block_number`) VALUES (1,0) ON DUPLICATE KEY UPDATE `block_number`=`block_number`'
+
 const initDatabase = async () => {
   await mysql.query(tableGames)
   await mysql.query(tableMoves)
   await mysql.query(tableRquests)
+  await mysql.query(tableLastblock)
+  await mysql.query(initLastblock)
 }
 
 module.exports = initDatabase
