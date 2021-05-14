@@ -1,8 +1,11 @@
 const hiveTx = require('hive-tx')
+const config = require('../config')
+
+hiveTx.config.node = config.node
 
 const INTERVAL_TIME = 1000
 
-const streamBlockNumber = async (cb) => {
+const streamBlockNumber = async cb => {
   try {
     let lastBlock = 0
     setInterval(async () => {
@@ -26,27 +29,17 @@ const streamBlockNumber = async (cb) => {
   }
 }
 
-const streamBlockOperations = async (cb) => {
-  try {
-    streamBlockNumber(async (blockNumber) => {
-      const result = await hiveTx.call('condenser_api.get_block', [blockNumber])
-      if (result.result) {
-        const operations = result.result.transactions.map((transaction) => {
-          return transaction.operations
-        })
-        if (operations.length > 0) {
-          for (const operation of operations) {
-            cb(operation)
-          }
-        }
-      }
+const getOperations = async blockNumber => {
+  const result = await hiveTx.call('condenser_api.get_block', [blockNumber])
+  if (result.result) {
+    const operations = result.result.transactions.map(transaction => {
+      return transaction.operations
     })
-  } catch (e) {
-    throw new Error(e)
+    return operations
   }
 }
 
 module.exports = {
   streamBlockNumber,
-  streamBlockOperations
+  getOperations
 }
