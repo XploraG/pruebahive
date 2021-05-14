@@ -12,14 +12,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/hive-tx/dist/hive-tx.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hive-tx@3.2.0/dist/hive-tx.min.js"></script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Tic-Tac-Toe</a>
+      <a class="navbar-brand" href="/">Tic-Tac-Toe</a>
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#login-modal" id="login-button">
@@ -48,12 +48,14 @@
           <form onsubmit="login(); return false">
             <div class="mb-3">
               <label for="username" class="form-label">Username:</label>
-              <div class="input-group mb-3">
+              <div class="input-group mb-3" style="margin-bottom: 5px !important;">
                 <span class="input-group-text">@</span>
                 <input type="text" class="form-control" placeholder="username" aria-label="username" id="username"
                   required>
               </div>
-              <div class="form-text">Your Hive username. Lowercase.</div>
+              <div class="form-text">Your Hive username. Lowercase.
+                <a href="https://signup.hive.io/" target="_blank" rel="noreferrer noopener">Sign up</a>
+              </div>
             </div>
             <div class="mb-3">
               <label for="posting-key" class="form-label">Posting key:</label>
@@ -81,7 +83,13 @@
               create a new game and invite your friend to play with you. <br /><br />
               This game is hosted on <a href="https://hive.io" target="_blank">Hive</a> blockchain.<br />
               <sub>Every action takes up to 3 seconds due to blockchain speed.</sub><br />
-              <sub>It's not possible to play games yet.</sub>
+              <sub>
+                The game itself is not the product and it is the result of a tutorial.<br />
+                <a href="https://hive.blog/hive-139531/@mahdiyari/making-a-decentralized-game-on-hive-tic-tac-toe-part-1"
+                  target="_blank" rel="noopener noreferrer">
+                  Make a decentralized game on Hive
+                </a>
+              </sub>
             </p>
           </div>
         </div>
@@ -153,6 +161,9 @@
     </div>
   </div>
   <script src="js/app.js"></script>
+  <div class="loading style-2" id="loading">
+    <div class="loading-wheel"></div>
+  </div>
 </body>
 
 </html>
